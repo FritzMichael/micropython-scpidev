@@ -88,6 +88,13 @@ class SCPIInterfaceTCP(object):
             else:
                 self.close_remote()
             return None
+
+        # Check if client disconnected (empty data)
+        if data_raw == b'':
+            print("Client disconnected")
+            self.close_remote()
+            return None
+
         if data_raw:
             print("New data: {!r}".format(data_raw))
             return data_raw.decode("utf-8")
